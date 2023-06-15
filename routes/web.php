@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Frontend\HomepageController;
 use App\Http\Controllers\ProfileController;
@@ -28,6 +29,12 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::match(['get', 'post'], 'category/create', [CategoryController::class, 'create'] )->name( 'category.create' );
     Route::match ( ['get', 'put'], 'category/edit/{category}', [CategoryController::class, 'edit'] )->name( 'category.edit' );
     Route::delete('category/delete/{category}', [CategoryController::class, 'delete'])->name('category.delete');
+
+    // Product
+    Route::get( 'product', [ProductController::class, 'index'] )->name( 'product.index' );
+    Route::match(['get', 'post'], 'product/create', [ProductController::class, 'create'] )->name( 'product.create' );
+    Route::match ( ['get', 'put'], 'product/edit/{product}', [ProductController::class, 'edit'] )->name( 'product.edit' );
+    Route::delete('product/delete/{product}', [ProductController::class, 'delete'])->name('product.delete');
 
 
 });

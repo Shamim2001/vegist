@@ -20,7 +20,7 @@ class CategoryFactory extends Factory
         $name = fake()->words(rand(1, 3), true);
         return [
             'name'      => $name,
-            'slug'      => Str   :: slug($name),
+            'slug'      => Str::slug($name),
             'thumbnail' => 'https://source.unsplash.com/random/250x250/?fruits,drinks&'.rand(2,421342)
         ];
     }

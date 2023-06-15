@@ -88,6 +88,28 @@
                 </li>
                 <!-- Category End -->
 
+                <!-- Category -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" data-bs-toggle="collapse" aria-expanded="false" role="button"
+                        href="#productSidebar" aria-controls="productSidebar">
+                        <i class="mdi mdi-speedometer"></i> <span data-key="t-product">Product</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ request()->routeIs('product.*') ? 'show' : '' }}"
+                        id="productSidebar">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('product.index') }}" class="nav-link {{ request()->routeIs('product.index') ? 'active' : '' }}" data-key="t-product">
+                                    View </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('product.create') }}" class="nav-link {{ request()->routeIs('product.create') ? 'active' : '' }}" data-key="t-product-create">
+                                    Create </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- Category End -->
+
 
             </ul>
         </div>
