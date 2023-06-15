@@ -4,7 +4,7 @@
 
 @section('content')
 
-@include('frontend.components.slider')
+<x-frontend.slider :sliders="$sliders" />
 
 <!--banner start-->
 <section class="t-banner1 section-tb-padding">
