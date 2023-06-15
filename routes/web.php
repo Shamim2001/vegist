@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Frontend\HomepageController;
@@ -22,6 +23,11 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::match(['get', 'post'], 'slider/create', [SliderController::class, 'create'])->name('slider.create');
     Route::match(['get', 'put', 'delete'], 'sliver/edit/{slider}', [SliderController::class, 'edit'])->name('slider.edit');
 
+    // Category
+    Route::get( 'category', [CategoryController::class, 'index'] )->name( 'category.index' );
+    Route::match(['get', 'post'], 'category/create', [CategoryController::class, 'create'] )->name( 'category.create' );
+    Route::match ( ['get', 'put'], 'category/edit/{category}', [CategoryController::class, 'edit'] )->name( 'category.edit' );
+    Route::delete('category/delete/{category}', [CategoryController::class, 'delete'])->name('category.delete');
 
 
 });

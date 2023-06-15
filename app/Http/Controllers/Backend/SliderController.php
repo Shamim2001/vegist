@@ -61,15 +61,14 @@ class SliderController extends Controller
     public function edit(Request $request, Slider $slider){
 
         if($request->isMethod('put')){
-            // dd($request->all());
-            // $request->validate([
-            //     'title'      => 'required|string|max:255',
-            //     'subtitle'   => 'nullable|string|max:255',
-            //     'btn_text'   => 'nullable|string|max:255',
-            //     'btn_link'   => 'nullable|string|max:255',
-            //     'alignment'  => 'required|in:left,right,center',
-            //     'background' => 'required',
-            // ]);
+            $request->validate([
+                'title'      => 'required|string|max:255',
+                'subtitle'   => 'nullable|string|max:255',
+                'btn_text'   => 'nullable|string|max:255',
+                'btn_link'   => 'nullable|string|max:255',
+                'alignment'  => 'required|in:left,right,center',
+                'background' => 'required',
+            ]);
 
             $background = $slider->background;
             if(!empty($request->file('background'))){
