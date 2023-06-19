@@ -38,7 +38,7 @@
                     <!-- Basic Input -->
                     <div class="mb-3">
                         <label for="excerpt" class="form-label">Excerpt</label>
-                        <textarea class="form-control" name="excerpt" id="excerpt" cols="30" rows="10">{{ old('excerpt') }}</textarea>
+                        <x-tinymce-editor name="excerpt" class="form-control"/>
                         @error('excerpt')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -46,7 +46,8 @@
                     <!-- Basic Input -->
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{ old('description') }}</textarea>
+                        <x-tinymce-editor name="description" id="description"/>
+
                         @error('description')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -98,8 +99,8 @@
 @endsection
 
 @push('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" ></script> --}}
+    {{-- <script>
         $(document).ready(function() {
             jQuery('input#name').keyup(function() {
                 let val = $(this).val();
@@ -107,5 +108,5 @@
                 $('input#slug').val(val.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
             });
         });
-    </script>
+    </script> --}}
 @endpush

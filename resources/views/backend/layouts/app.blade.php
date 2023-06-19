@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('backend') }}/assets/images/favicon.ico">
+    {{-- <link rel="shortcut icon" href="{{ asset('backend') }}/assets/images/favicon.ico"> --}}
+    <link rel="shortcut icon" type="image/favicon" href="{{ asset('frontend') }}/image/fevicon.png">
 
     <script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
     <!-- Layout config Js -->
@@ -24,8 +25,10 @@
     <link href="{{ asset('backend') }}/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Jquery Css-->
-    <link href="{{ asset('backend') }}/assets/js/jquery.min.js" rel="stylesheet" type="text/css" />
+    <script src="{{ asset('backend') }}/assets/js/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <x-head.tinymce-config />
 
     @stack('css')
 </head>
