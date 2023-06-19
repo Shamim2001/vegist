@@ -79,7 +79,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="gallery" class="form-label">Gallery</label>
-                        <input class="form-control" type="file" id="gallery" name="gallery[]">
+                        <input class="form-control" type="file" id="gallery" name="gallery[]" multiple>
                         @error('gallery')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -99,14 +99,13 @@
 @endsection
 
 @push('js')
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" ></script> --}}
-    {{-- <script>
+    <script>
         $(document).ready(function() {
-            jQuery('input#name').keyup(function() {
+            jQuery('input#title').keyup(function() {
                 let val = $(this).val();
                 console.log(val);
                 $('input#slug').val(val.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
             });
         });
-    </script> --}}
+    </script>
 @endpush

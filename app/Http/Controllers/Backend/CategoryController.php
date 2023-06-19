@@ -25,7 +25,7 @@ class CategoryController extends Controller {
         if ( $request->isMethod( 'POST' ) ) {
             $request->validate( [
                 'name'      => 'required|string|max:255',
-                'slug'      => 'nullable|string|max:255',
+                'slug'      => 'required|string|max:255',
                 'thumbnail' => 'nullable',
             ] );
 
@@ -55,7 +55,7 @@ class CategoryController extends Controller {
             // Validation
             $request->validate( [
                 'name'      => 'required|string|max:255',
-                'slug'      => 'nullable|string|max:255',
+                'slug'      => 'required|string|max:255',
                 'thumbnail' => 'nullable',
             ] );
 

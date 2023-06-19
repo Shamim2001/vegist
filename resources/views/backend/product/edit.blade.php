@@ -1,50 +1,98 @@
 @extends('backend.layouts.app')
 
-@section('title', 'Edit Category')
-@section('page-title', 'Edit Category')
+@section('title', 'Edit Product')
+@section('page-title', 'Edit Product')
 
 @section('content')
 
     <section class="bg-white p-4">
         <div class="text-end">
             <!-- Base Buttons -->
-            <a href="{{ route('category.index') }}" class="btn btn-primary waves-effect waves-light">Back</a>
+            <a href="{{ route('product.index') }}" class="btn btn-primary waves-effect waves-light">Back</a>
         </div>
 
 
-        <form action="{{ route('category.edit', $category) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('product.edit', $product) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
-            <!-- Basic Input -->
-            <div class="mb-3">
-                <label for="catname" class="form-label">Name</label>
-                <input type="text" class="form-control" id="catname" name="name" value="{{ $category->name }}">
-                @error('name')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
-            </div>
-            <!-- Basic Input -->
-            <div class="mb-3">
-                <label for="slug" class="form-label">Slug</label>
-                <input type="text" class="form-control" id="slug" name="slug" value="{{ $category->slug }}">
-                @error('slug')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
-            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Basic Input -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" name="title"
+                            value="{{ $product->title }}">
+                        @error('title')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <!-- Basic Input -->
+                    <div class="mb-3">
+                        <label for="slug" class="form-label">Slug</label>
+                        <input type="text" class="form-control" id="slug" name="slug"
+                            value="{{ $product->title }}">
+                        @error('slug')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <!-- Basic Input -->
+                    <div class="mb-3">
+                        <label for="excerpt" class="form-label">Excerpt</label>
+                        <x-tinymce-editor name="excerpt" class="form-control">{!! $product->excerpt !!}</x-tinymce-editor>
+                        @error('excerpt')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <!-- Basic Input -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <x-tinymce-editor name="description" id="description" >{!! $product->description !!}</x-tinymce-editor>
 
-            <!-- Default File Input Example -->
-            <div class="mb-3">
-                <label for="thumbnail" class="form-label">Thumbnail</label>
-                <input class="form-control" type="file" id="thumbnail" name="thumbnail" value="{{ $category->thumbnail }}">
-                <img width="80" height="80" src="{{ getAssetUrl($category->thumbnail, '/uploads') }}" alt="">
-                @error('thumbnail')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
-            </div>
-            <hr>
-            <div class="">
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
+                        @error('description')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input class="form-control" type="number" id="price" name="price" value="{{ $product->price }}">
+                        @error('price')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select name="category_id" id="category" class="form-select">
+                            <option value="none">Select Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $product->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('price')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="gallery" class="form-label">Gallery</label>
+                        <input class="form-control" type="file" id="gallery" name="gallery[]" multiple >
+                        @foreach ($product->gallery as $gimg )
+                            <img class="mt-3 border border-info" width="50" height="50" src="{{ getAssetUrl($gimg->name, '/uploads/posts') }}" alt="">
+                        @endforeach
+                        @error('gallery')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <hr>
+                    <div class="">
+                        <button type="submit" class="btn btn-primary waves-effect waves-light w-100">Update</button>
+                    </div>
+                </div>
             </div>
         </form>
 
@@ -53,10 +101,9 @@
 @endsection
 
 @push('js')
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" ></script> --}}
     <script>
         $(document).ready(function() {
-            $('input#catname').keyup(function() {
+            $('input#title').keyup(function() {
                 let val = $(this).val();
                 console.log(val);
                 $('input#slug').val(val.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
