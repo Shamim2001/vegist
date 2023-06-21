@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
 
-@section('title', 'Create Product')
-@section('page-title', 'Create Product')
+@section('title', 'Edit Product')
+@section('page-title', 'Edit Product')
 
 @section('content')
 
@@ -12,8 +12,9 @@
         </div>
 
 
-        <form action="{{ route('product.create') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('product.edit', $product) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
             <div class="row">
                 <div class="col-md-8">
@@ -21,7 +22,7 @@
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title"
-                            value="{{ old('title') }}">
+                            value="{{ $product->title }}">
                         @error('title')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -30,7 +31,7 @@
                     <div class="mb-3">
                         <label for="slug" class="form-label">Slug</label>
                         <input type="text" class="form-control" id="slug" name="slug"
-                            value="{{ old('slug') }}">
+                            value="{{ $product->title }}">
                         @error('slug')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -38,7 +39,7 @@
                     <!-- Basic Input -->
                     <div class="mb-3">
                         <label for="excerpt" class="form-label">Excerpt</label>
-                        <x-tinymce-editor name="excerpt" class="form-control"/>
+                        <x-tinymce-editor name="excerpt" class="form-control">{!! $product->excerpt !!}</x-tinymce-editor>
                         @error('excerpt')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -46,7 +47,7 @@
                     <!-- Basic Input -->
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <x-tinymce-editor name="description" id="description"/>
+                        <x-tinymce-editor name="description" id="description" >{!! $product->description !!}</x-tinymce-editor>
 
                         @error('description')
                             <p class="text-danger">{{ $message }}</p>
@@ -58,7 +59,7 @@
                 <div class="col-md-4">
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
-                        <input class="form-control" type="number" id="price" name="price">
+                        <input class="form-control" type="number" id="price" name="price" value="{{ $product->price }}">
                         @error('price')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -69,7 +70,7 @@
                             <option value="none">Select Category</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
-                                    {{ old('category_id' == $category->id ? 'selected' : '') }}>{{ $category->name }}
+                                    {{ $product->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}
                                 </option>
                             @endforeach
                         </select>
@@ -79,20 +80,21 @@
                     </div>
                     <div class="mb-3">
                         <label for="gallery" class="form-label">Gallery</label>
-                        <input class="form-control filepond" type="file" id="gallery" name="filepond[]" multiple>
+                        <input class="form-control" type="file" id="gallery" name="gallery[]" multiple >
+                        @foreach ($product->gallery as $gimg )
+                            <img class="mt-3 border border-info" width="50" height="50" src="{{ getAssetUrl($gimg->name, '/uploads/posts') }}" alt="">
+                        @endforeach
                         @error('gallery')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <hr>
                     <div class="">
-                        <button type="submit" class="btn btn-primary waves-effect waves-light w-100">Create</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light w-100">Update</button>
                     </div>
                 </div>
             </div>
-
         </form>
-
 
     </section>
 
@@ -101,7 +103,7 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            jQuery('input#title').keyup(function() {
+            $('input#title').keyup(function() {
                 let val = $(this).val();
                 console.log(val);
                 $('input#slug').val(val.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));

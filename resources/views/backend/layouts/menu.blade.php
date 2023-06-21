@@ -88,7 +88,7 @@
                 </li>
                 <!-- Category End -->
 
-                <!-- Category -->
+                <!-- Product -->
                 <li class="nav-item">
                     <a class="nav-link menu-link" data-bs-toggle="collapse" aria-expanded="false" role="button"
                         href="#productSidebar" aria-controls="productSidebar">
@@ -108,7 +108,29 @@
                         </ul>
                     </div>
                 </li>
-                <!-- Category End -->
+                <!-- Product End -->
+
+                <!-- Product -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" data-bs-toggle="collapse" aria-expanded="false" role="button"
+                        href="#newsSidebar" aria-controls="newsSidebar">
+                        <i class="mdi mdi-speedometer"></i> <span data-key="t-news">News</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ request()->routeIs('news.*') ? 'show' : '' }}"
+                        id="newsSidebar">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('news.index') }}" class="nav-link {{ request()->routeIs('news.index') ? 'active' : '' }}" data-key="t-news">
+                                    View </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('news.create') }}" class="nav-link {{ request()->routeIs('news.create') ? 'active' : '' }}" data-key="t-news-create">
+                                    Create </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- Product End -->
 
 
             </ul>

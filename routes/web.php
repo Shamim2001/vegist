@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Frontend\HomepageController;
@@ -35,6 +36,12 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::match(['get', 'post'], 'product/create', [ProductController::class, 'create'] )->name( 'product.create' );
     Route::match ( ['get', 'put'], 'product/edit/{product}', [ProductController::class, 'edit'] )->name( 'product.edit' );
     Route::delete('product/delete/{product}', [ProductController::class, 'delete'])->name('product.delete');
+
+    // News
+    Route::get( 'news', [NewsController::class, 'index'] )->name( 'news.index' );
+    Route::match(['get', 'post'], 'news/create', [NewsController::class, 'create'] )->name( 'news.create' );
+    Route::match ( ['get', 'put'], 'news/edit/{news}', [NewsController::class, 'edit'] )->name( 'news.edit' );
+    Route::delete('news/delete/{news}', [NewsController::class, 'delete'])->name('news.delete');
 
 
 });

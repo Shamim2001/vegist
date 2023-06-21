@@ -79,7 +79,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="gallery" class="form-label">Gallery</label>
-                        <input class="form-control filepond" type="file" id="gallery" name="filepond[]" multiple>
+                        <input class="form-control" type="file" id="gallery" name="gallery[]" multiple>
                         @error('gallery')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
