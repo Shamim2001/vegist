@@ -26,7 +26,6 @@
 
     <!-- Filepond stylesheet -->
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
         rel="stylesheet" />
 
@@ -44,18 +43,14 @@
 
     <script>
         $(function() {
-            FilePond.registerPlugin(FilePondPluginImagePreview);
             // Turn input element into a pond
-            $('.filepond').filepond({
-                allowImagePreview: false
-            });
-
-            // Register the plugin
-            FilePond.registerPlugin(
-                FilePondPluginImagePreview,
-                FilePondPluginFileValidateType
-            );
+            $('.filepond').filepond();
         });
+        // Register the plugin
+        FilePond.registerPlugin(
+            FilePondPluginImagePreview,
+            FilePondPluginFileValidateType
+        );
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
