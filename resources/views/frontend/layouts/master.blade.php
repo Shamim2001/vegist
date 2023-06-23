@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- title -->
     <title>@yield('title')</title>
-    
+
     <!-- favicon -->
     <link rel="shortcut icon" type="image/favicon" href="{{ asset('frontend') }}/image/fevicon.png">
     <!-- bootstrap -->
@@ -30,6 +30,10 @@
     <!-- style -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/css/style.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/css/responsive.css">
+    <!-- custom -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/custom.css">
+
+    @stack('css')
 </head>
 
 <body class="home-1">
@@ -632,6 +636,8 @@
     <script src="{{ asset('frontend') }}/js/swiper.min.js"></script>
     <!-- custom -->
     <script src="{{ asset('frontend') }}/js/custom.js"></script>
+
+    @stack('js')
 </body>
 
 </html>

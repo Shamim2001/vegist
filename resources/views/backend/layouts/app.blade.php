@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- App favicon -->
-    {{-- <link rel="shortcut icon" href="{{ asset('backend') }}/assets/images/favicon.ico"> --}}
-    <link rel="shortcut icon" type="image/favicon" href="{{ asset('frontend') }}/image/fevicon.png">
+    <link rel="shortcut icon" href="{{ asset('backend') }}/assets/images/favicon.ico">
+    {{-- <link rel="shortcut icon" type="image/favicon" href="{{ asset('frontend') }}/image/fevicon.png"> --}}
 
     <script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
     <!-- Layout config Js -->

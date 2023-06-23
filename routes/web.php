@@ -6,13 +6,15 @@ use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Frontend\HomepageController;
+use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
 // frontend routes
 Route::as('front.')->group(function () {
-    Route::get('/', [HomepageController::class, 'index'])->name('home');
+    Route::get('/', [PageController::class, 'index'])->name('home');
+    Route::get('shop', [PageController::class, 'shop'])->name('shop');
 });
 
 
