@@ -80,10 +80,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="gallery" class="form-label">Gallery</label>
-                        <input class="form-control" type="file" id="gallery" name="gallery[]" multiple >
-                        @foreach ($product->gallery as $gimg )
-                            <img class="mt-3 border border-info" width="50" height="50" src="{{ getAssetUrl($gimg->name, '/uploads/posts') }}" alt="">
+                        <input class="form-control filepond" type="file" id="gallery" name="gallery[]" multiple >
+
+                        @foreach ($product->gallery as $item )
+                            <img class="mt-3 border border-info" width="50" height="50" src="{{ getAssetUrl($item->name, '/uploads/products') }}" alt="">
                         @endforeach
+
                         @error('gallery')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror

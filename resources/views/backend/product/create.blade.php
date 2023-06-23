@@ -79,7 +79,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="gallery" class="form-label">Gallery</label>
-                        <input class="form-control filepond" type="file" id="gallery" name="gallery[]" multiple accept="image/png, image/jpeg, image/gif">
+                        <input class="form-control filepond" type="file" id="gallery" name="gallery[]" multiple accept="image/png, image/jpeg, image/gif" data-allow-reorder="true" data-max-file-size="20MB" data-max-files="5">
                         @error('gallery')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror

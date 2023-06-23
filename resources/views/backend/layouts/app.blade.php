@@ -44,7 +44,9 @@
     <script>
         $(function() {
             // Turn input element into a pond
-            $('.filepond').filepond();
+            $('.filepond').filepond({
+                storeAsFile: true
+            });
         });
         // Register the plugin
         FilePond.registerPlugin(

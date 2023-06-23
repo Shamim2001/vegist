@@ -23,7 +23,7 @@ class ProductController extends Controller {
      * @return void
      */
     function create( Request $request ) {
-        $categories = Category::get();
+
         // If Method POST
         if ( $request->isMethod( 'POST' ) ) {
             // Validation
@@ -52,7 +52,7 @@ class ProductController extends Controller {
                 foreach ( $request->file( 'gallery' ) as $image ) {
                     $file = $image->getClientOriginalName();
                     $filename = str_replace( ' ', '-', time() . '--' . $file );
-                    $image->storeAs( 'posts/', $filename );
+                    $image->storeAs( 'products/', $filename );
 
                     // Gallery Create
                     Gallery::create( [
@@ -113,6 +113,8 @@ class ProductController extends Controller {
             return redirect()->route( 'product.index' )->with( 'success', 'Product Updated Successfully' );
         }
 
+        // Category Store Variable
+        $categories = Category::get(['id','name']);
         // Return
         return view( 'backend.product.edit', compact( 'categories', 'product' ) );
     }

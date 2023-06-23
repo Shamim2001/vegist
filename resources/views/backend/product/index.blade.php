@@ -28,8 +28,8 @@
                         <th scope="row"> {{ $products->perPage() * ($products->currentPage() - 1) + ++$key }}</th>
                         <td>
                             <!-- Thumbnails Images -->
-                            {{-- <img class="img-thumbnail" alt="" width="200"
-                                src="{{ getAssetUrl($product->gallery->name, '/uploads/products') }}"> --}}
+                            <img class="img-thumbnail" alt="" width="200"
+                                src="{{ count($product->gallery) > 0 ? getAssetUrl($product->gallery[0]->name, '/uploads/products') : '' }}">
                         </td>
                         <td>{{ $product->title }}</td>
                         <td>{{ $product->category->name }}</td>
