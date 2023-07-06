@@ -6,6 +6,7 @@ use App\Models\Slider;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 
 class PageController extends Controller
 {
@@ -20,7 +21,15 @@ class PageController extends Controller
 
 
     public function shop() {
+
+        $products = Product::latest()->paginate();
         // Return
-        return view('frontend.shop.index');
+        return view('frontend.shop.index', compact('products'));
+    }
+
+    public function singleProduct($slug) {
+        $product = Product::where('slug', $slug)->first();
+        // Return
+        return view('frontend.shop.single', compact('product'));
     }
 }

@@ -28,7 +28,7 @@
                         <th scope="row"> {{ $categories->perPage() * ($categories->currentPage() - 1) + ++$key }}</th>
                         <td>
                             <!-- Thumbnails Images -->
-                            <img class="img-thumbnail" alt="" width="200"
+                            <img class="img-thumbnail" alt="" width="80"
                                 src="{{ getAssetUrl($category->thumbnail) }}">
                         </td>
                         <td>{{ $category->name }}</td>

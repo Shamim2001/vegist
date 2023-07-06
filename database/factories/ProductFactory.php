@@ -17,14 +17,15 @@ class ProductFactory extends Factory {
      */
     public function definition(): array
     {
-        $title = $this->faker->sentence( rand( 3, 6 ) );
+        $title = fake()->sentence( rand( 3, 7 ) );
+
         return [
-            'title'      => $title,
-            'slug'          => Str::slug( $title ),
-            'excerpt' => $this->faker->paragraphs( rand( 1, 2 ), true ),
-            'description'    => $this->faker->paragraphs( rand( 1, 5 ), true ),
-            'category_id'   => Category::all()->random()->id,
-            'price'        => '130.00',
+            'title'       => $title,
+            'slug'        => Str::slug( $title ),
+            'excerpt'     => fake()->paragraph( rand( 3, 7 ) ),
+            'description' => fake()->paragraphs( rand( 3, 6 ), true ),
+            'category_id' => Category::all()->random()->id,
+            'price'       => fake()->randomElement( ['300', '500', '700', '100'] ),
         ];
     }
 }
