@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
 class CartController extends Controller {
+
+    public function index() {
+        if ( Cookie::get( 'shopping_cart' ) ) {
+            $cookie_data = stripslashes( Cookie::get( 'shopping_cart' ) );
+            $carts = json_decode( $cookie_data, false );
+        } else {
+            $carts = [];
+        }
+
+        return view('frontend.cart.index', compact('carts'));
+    }
+
     /**
      * Undocumented function
      *
@@ -83,20 +95,20 @@ class CartController extends Controller {
                 $total += ( $item->item_quantity * $item->item_price );
                 $html .= '<li class="cart-item">
                 <div class="cart-img">
-                    <a href="'. route('front.shop.single', $item->item_slug) .'">
-                        <img src="'. getAssetUrl($item->item_image) .'" alt="'. $item->item_name .'"
+                    <a href="' . route( 'front.shop.single', $item->item_slug ) . '">
+                        <img src="' . getAssetUrl( $item->item_image ) . '" alt="' . $item->item_name . '"
                             class="img-fluid">
                     </a>
                 </div>
                 <div class="cart-title">
-                    <h6><a href="'. route('front.shop.single', $item->item_slug) .'">'. $item->item_name .'</a></h6>
+                    <h6><a href="' . route( 'front.shop.single', $item->item_slug ) . '">' . $item->item_name . '</a></h6>
                     <div class="cart-pro-info">
                         <div class="cart-qty-price">
-                            <span class="quantity">'. $item->item_price .' x </span>
-                            <span class="price-box">$'. $item->item_quantity .' USD</span>
+                            <span class="quantity">' . $item->item_price . ' x </span>
+                            <span class="price-box">$' . $item->item_quantity . ' USD</span>
                         </div>
                         <div class="delete-item-cart">
-                            <a href="javascript:void(0)" class="remove-cart-item" data-id="'. $item->item_id .'"><i class="icon-trash icons"></i></a>
+                            <a href="javascript:void(0)" class="remove-cart-item" data-id="' . $item->item_id . '"><i class="icon-trash icons"></i></a>
                         </div>
                     </div>
                 </div>
@@ -105,9 +117,9 @@ class CartController extends Controller {
 
             return [
                 'totalcart' => $totalcart,
-                'cart' => $cart_data,
-                'html' => $html,
-                'subtotal' => '$'.number_format( $total, 2)
+                'cart'      => $cart_data,
+                'html'      => $html,
+                'subtotal'  => '$' . number_format( $total, 2 ),
             ];
         } else {
             $totalcart = "0";

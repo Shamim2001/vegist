@@ -253,7 +253,7 @@
                 </li>
                 <li class="mini-cart-btns">
                     <div class="cart-btns">
-                        <a href="cart.html" class="btn btn-style2">View cart</a>
+                        <a href="{{ route('front.cart.index') }}" class="btn btn-style2">View cart</a>
                         <a href="checkout-1.html" class="btn btn-style2">Checkout</a>
                     </div>
                 </li>
@@ -592,15 +592,15 @@
             });
         });
 
+        // Toastify Alert Function
         function toast(message) {
             Toastify({
                 text: message,
                 duration: 3000,
-                // destination: "https://github.com/apvarun/toastify-js",
                 newWindow: true,
                 close: false,
-                gravity: "bottom", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
+                gravity: "bottom", // `botom` or `top`
+                position: "right", // `right`, `center` or `right`
                 stopOnFocus: true, // Prevents dismissing of toast on hover
                 style: {
                     background: "linear-gradient(to right, #00b09b, #96c93d)",
@@ -608,6 +608,45 @@
                 onClick: function() {} // Callback after click
             }).showToast();
         }
+
+        // Cart load Function
+        function cartLoad() {
+            $.ajax({
+                url: '{{ route('front.cart.load') }}',
+                method: "GET",
+                success: function(response) {
+                    $(".bigcounter").html(response.totalcart);
+                    $('.cart-item-loop').html(response.html);
+                    $('.subtotal-price').html(response.subtotal);
+                }
+            });
+        }
+
+        // Add To Cart
+        $(document).ready(function() {
+            cartLoad();
+            $('.add-to-cart-btn').click(function(e) {
+                e.preventDefault();
+
+                var product_id = $(this).closest('.product_data').find('.product_id').val();
+                var quantity = $(this).closest('.product_data').find('.qty-input').val();
+
+                // Ajax
+                $.ajax({
+                    url: '{{ route('front.cart.store') }}',
+                    method: "POST",
+                    data: {
+                        'quantity': quantity,
+                        'product_id': product_id,
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        toast(response.message);
+                        cartLoad();
+                    },
+                });
+            });
+        });
     </script>
 
     @stack('js')

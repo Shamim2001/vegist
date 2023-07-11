@@ -274,44 +274,6 @@
             zoomer.style.backgroundPosition = x + '% ' + y + '%';
         }
 
-        $(document).ready(function() {
-            cartLoad();
-            $('.add-to-cart-btn').click(function(e) {
-                e.preventDefault();
 
-                var product_id = $(this).closest('.product_data').find('.product_id').val();
-                var quantity = $(this).closest('.product_data').find('.qty-input').val();
-
-
-                $.ajax({
-                    url: '{{ route('front.cart.store') }}',
-                    method: "POST",
-                    data: {
-                        'quantity': quantity,
-                        'product_id': product_id,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        toast(response.message);
-                        cartLoad();
-
-                    },
-                });
-            });
-
-
-            function cartLoad() {
-                $.ajax({
-                    url: '{{ route('front.cart.load') }}',
-                    method: "GET",
-                    success: function(response) {
-                        console.log(response);
-                        $(".bigcounter").html(response.totalcart);
-                        $('.cart-item-loop').html(response.html);
-                        $('.subtotal-price').html(response.subtotal);
-                    }
-                })
-            }
-        });
     </script>
 @endpush
