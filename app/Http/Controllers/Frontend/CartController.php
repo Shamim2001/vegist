@@ -17,7 +17,7 @@ class CartController extends Controller {
             $carts = [];
         }
 
-        return view('frontend.cart.index', compact('carts'));
+        return view( 'frontend.cart.index', compact( 'carts' ) );
     }
 
     /**
@@ -126,6 +126,32 @@ class CartController extends Controller {
             return [
                 'totalcart' => $totalcart,
             ];
+        }
+    }
+
+    // Remove Cart
+    public function removeCartItem( Request $request ) {
+        $prod_id = $request->input( 'product_id' );
+
+        $cookie_data = stripslashes( Cookie::get( 'shopping_cart' ) );
+        $cart_data = json_decode( $cookie_data, true );
+
+        $item_id_list = array_column( $cart_data, 'item_id' );
+        $prod_id_is_there = $prod_id;
+
+        if ( in_array( $prod_id_is_there, $item_id_list ) ) {
+            foreach ( $cart_data as $keys => $values ) {
+                if ( $cart_data[$keys]["item_id"] == $prod_id ) {
+                    // unset( $cart_data[$keys] );
+                    $new = array_splice($cart_data, $keys, 1);
+                    $item_data = json_encode( $cart_data );
+                    $minutes = 60;
+                    Cookie::queue( Cookie::make( 'shopping_cart', $item_data, $minutes ) );
+                    return [
+                        'message' => 'Item Removed from Cart'
+                    ];
+                }
+            }
         }
     }
 }

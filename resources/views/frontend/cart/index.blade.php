@@ -60,7 +60,7 @@
                                             class="item-total">${{ number_format($cart->item_quantity * $cart->item_price, 2) }}
                                             USD</span>
                                         <span class="ms-3">
-                                            <a href="javascript:void(0)" class="text-danger"><i
+                                            <a href="javascript:void(0)" data-id="{{ $cart->item_id }}" class="text-danger remove-cart-item"><i
                                                     class="fa fa-remove"></i></a>
                                         </span>
                                     </div>
@@ -97,6 +97,7 @@
 
 @push('js')
     <script>
+        // Increment
         $(document).on('click', '.minus-btn', function(e) {
             e.preventDefault();
             var el = $(this).closest('.cart-area');
@@ -105,7 +106,7 @@
             updateCart('minus', el, product_id);
         })
 
-
+        // Decrement
         $(document).on('click', '.plus-btn', function(e) {
             e.preventDefault();
             var el = $(this).closest('.cart-area');

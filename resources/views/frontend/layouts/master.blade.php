@@ -579,12 +579,16 @@
     <script src="{{ asset('frontend') }}/js/owl.carousel.min.js"></script>
     <!-- swiper -->
     <script src="{{ asset('frontend') }}/js/swiper.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="{{ asset('backend') }}/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- custom -->
     <script src="{{ asset('frontend') }}/js/custom.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <script>
+        // Ajax Token Setup
         $(document).ready(function() {
+            cartLoad();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -622,13 +626,49 @@
             });
         }
 
+
+        // Remove cart Item
+        $(document).on('click', '.remove-cart-item', function(e) {
+            e.preventDefault();
+            // Store product Id
+            var product_id = $(this).data('id');
+            // Data
+            var data = {
+                "product_id": product_id,
+            };
+            // Alert Fire
+            Swal.fire({
+                html: '<div class="mt-3"><lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon><div class="mt-4 pt-2 fs-15 mx-5"><h4>Warning!</h4><p class="text-muted mx-4 mb-0">Do want to delete?</p></div></div>',
+                showCancelButton: !0,
+                confirmButtonClass: "btn btn-primary w-xs me-2 mb-1",
+                confirmButtonText: "Yes, Delete It!",
+                cancelButtonClass: "btn btn-danger w-xs mb-1",
+                buttonsStyling: !1,
+                showCloseButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    event.preventDefault();
+                    // Ajax
+                    $.ajax({
+                        url: '{{ route('front.cart.remove') }}',
+                        type: 'DELETE',
+                        data: data,
+                        success: function(response) {
+                            window.location.reload();
+                        }
+                    });
+                }
+            })
+        });
+
         // Add To Cart
         $(document).ready(function() {
             cartLoad();
             $('.add-to-cart-btn').click(function(e) {
                 e.preventDefault();
-
+                // Find Product input Id
                 var product_id = $(this).closest('.product_data').find('.product_id').val();
+                // Find Quantity input
                 var quantity = $(this).closest('.product_data').find('.qty-input').val();
 
                 // Ajax
